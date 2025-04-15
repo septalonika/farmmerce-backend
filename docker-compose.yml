@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: farmmerce_postgres
+    environment:
+      POSTGRES_DB: farmmerce_db
+      POSTGRES_USER: cugud
+      POSTGRES_PASSWORD: kmzway87aa
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
