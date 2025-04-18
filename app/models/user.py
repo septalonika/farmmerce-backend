@@ -1,9 +1,15 @@
-from instances.db_config import Base
+from app.instances.db_config import Base
 from sqlalchemy import Column, Integer, String
 
 class Users(Base):
     __tablename__ = "users"
 
-    id = Base.Column(Integer, primary_key=True, index=True)
-    email = Base.Column(String, unique=True, index=True)
-    hashed_password = Base.Column(String)
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+        }
