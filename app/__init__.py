@@ -6,11 +6,15 @@ from app.schemas import user_schema
 from fastapi.responses import JSONResponse
 from app.routers.user import user_router
 
+def create_app():
+    app = FastAPI()
+    
+    @app.get("/")
+    def read_root():
+        return {"message": "this is index of app"}
 
-app = FastAPI()
+    app.include_router(user_router)
+    return app
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-app.include_router(user_router)
+# Create the FastAPI app instance
+app = create_app()
