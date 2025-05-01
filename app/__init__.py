@@ -1,20 +1,27 @@
-from app.models.user import Users
-from app.instances.db_config import get_db
+from app.instances.db_config import database
 from fastapi import FastAPI
-from sqlalchemy.orm import Session
-from app.schemas import user_schema
-from fastapi.responses import JSONResponse
 from app.routers.user import user_router
+from app.settings import settings
+from contextlib import asynccontextmanager
+
+async def startup():
+    await database.connect()
+
+async def shutdown():
+    await database.disconnect()
 
 def create_app():
-    app = FastAPI()
-    
-    @app.get("/")
-    def read_root():
-        return {"message": "this is index of app"}
+
+    @asynccontextmanager
+    async def lifespan(app:FastAPI):
+        await startup()
+        yield
+        await shutdown()
+
+    app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
 
     app.include_router(user_router)
+
     return app
 
-# Create the FastAPI app instance
 app = create_app()
