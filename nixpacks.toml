@@ -5,4 +5,4 @@ commands = ["pip install -r requirements.txt"]
 commands = []
 
 [phases.start]
-commands = ["uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
+commands = ["uvicorn app.main:app --host 0.0.0.0"]
