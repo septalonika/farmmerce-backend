@@ -10,5 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Set the default command to run the application
-# CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "2500"]
-CMD ["fastapi","--app","main","run","--host=0.0.0.0","--port=2500","--debug"]
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "2500"]
+# CMD ["fastapi","--app","main","run","--host=0.0.0.0","--port=2500","--debug"]
