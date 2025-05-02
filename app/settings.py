@@ -1,19 +1,10 @@
-from functools import lru_cache
-import os
-
-
 from pydantic_settings import BaseSettings
-
 class Settings(BaseSettings):
     DATABASE_URL: str
-    APP_NAME: str
+    APP_NAME: str = "DefaultApp"  # opsional jika tidak penting
 
     class Config:
-        env_file = os.environ.get('ENV_FILE', './.env')
-        env_file_encoding = 'utf-8'
+        env_file = ".env"
+        extra = "allow"  # agar tidak error dengan variabel tak dikenal
 
-@lru_cache()
-def get_settings():
-    return Settings()
-
-settings = get_settings()
+settings = Settings()
