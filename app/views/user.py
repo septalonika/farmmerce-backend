@@ -1,15 +1,20 @@
 from fastapi import HTTPException, status
 from fastapi.responses import JSONResponse
 from app.repositories.user import UserRepository
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
 
 class UserView():
     def __init__(self):
         self.user_repo = UserRepository()
-        pass
     
-    def get_all_users(self):
+    def get_all_users(self, db: Session):
         try:
-            response = self.user_repo.get_all()
+            response = self.user_repo.get_all(db)
             if response is None:
                 return JSONResponse(
                     status_code=status.HTTP_404_NOT_FOUND,
@@ -39,6 +44,22 @@ class UserView():
                     "status": 500
                 }
             )
+        
+    def create_user(self, payload: UserCreate):
+        return payload
+
+        # try:
+        #     return payload
+        #     # response = self.user_repo.create()
+        # except Exception as e:
+        #     return JSONResponse(
+        #         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        #         content={
+        #             "success": False,
+        #             "message": str(e),
+        #             "status": 500
+        #         }
+        #     )
         
         
         # get user from repository
