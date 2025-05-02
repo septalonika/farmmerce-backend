@@ -3,8 +3,7 @@ from app.models.user import Users
 from app.instances.db_config import get_db
 
 class UserRepository:
-    def get_all(self):
-        db = next(get_db())
+    def get_all(self, db):
         try:
             users = db.query(Users).all()
             return users if users else None
