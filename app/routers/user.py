@@ -16,8 +16,8 @@ async def get_user_by_id():
     pass
 
 @user_router.post("")
-async def create_user(payload: UserCreate):
-    return user_view.create_user(payload)
+async def create_user(payload: UserCreate, db: Session = Depends(get_db)):
+    return user_view.create_user(payload, db)
 
 @user_router.put("/{user_id}")
 async def update_user():
