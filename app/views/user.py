@@ -45,9 +45,17 @@ class UserView():
                 }
             )
         
-    def create_user(self, payload: UserCreate):
-        return payload
-
+    def create_user(self, payload: UserCreate, db):
+        try:
+            response = self.user_repo.create_user(payload, db)
+            return response
+        except HTTPException as e:
+            raise e 
+        except Exception as e:
+            raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An unexpected error occurred: {str(e)}"
+        )
         # try:
         #     return payload
         #     # response = self.user_repo.create()
