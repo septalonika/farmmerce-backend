@@ -1,6 +1,7 @@
 from app.instances.db_config import database
 from fastapi import FastAPI
 from app.routers.user import user_router
+from app.routers.auth import auth_router
 from app.settings import settings
 from contextlib import asynccontextmanager
 
@@ -21,6 +22,7 @@ def create_app():
     app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
 
     app.include_router(user_router)
+    app.include_router(auth_router)
 
     return app
 
