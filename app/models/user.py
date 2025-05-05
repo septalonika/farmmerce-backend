@@ -8,9 +8,10 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class Users(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String(50), unique=True, index=True)
+    email = Column(String, unique=True, index=True)
     username = Column(String, unique=True, index=True)
     password = Column(String, nullable=False)
+    address = Column(String, nullable=True)
     role = Column(Integer, nullable=False, default=1)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
