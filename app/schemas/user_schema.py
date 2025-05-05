@@ -17,6 +17,7 @@ class UserCreate(BaseModel):
     first_name: str
     last_name: str
     gender: Optional[GenderEnum]
+    address: Optional[str]
 
 class UserUpdate(BaseModel):
     email: Optional[EmailStr]
@@ -24,6 +25,7 @@ class UserUpdate(BaseModel):
     first_name: Optional[str]
     last_name: Optional[str]
     gender: Optional[GenderEnum]
+    address: Optional[str]
 
 class PasswordUpdate(BaseModel):
     password: str
