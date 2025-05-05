@@ -1,7 +1,6 @@
-from fastapi import HTTPException, status
+from fastapi import status
 from fastapi.responses import JSONResponse
 from app.repositories.user import UserRepository
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 class UserView():
@@ -41,8 +40,8 @@ class UserView():
             )
         
     def find_user(self, credential, db: Session):
-            user = self.user_repo.get_user_by(credential, db)
-            return user
+        user = self.user_repo.get_user_by(credential, db)
+        return user
     
     def get_user(self, credential, db: Session):
         try:
