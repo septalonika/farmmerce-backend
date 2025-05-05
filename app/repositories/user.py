@@ -9,6 +9,15 @@ class UserRepository:
             db.rollback()
             print(f"An error occurred: {e}")
             return None
+    
+    def get_credential(self, email, db):
+        try:
+            users = db.query(Users).filter(Users.email == email).first()
+            return users if users else None
+        except Exception as e:
+            db.rollback()
+            print(f"An error occurred: {e}")
+            return None
         
     def get_user_by(self, credential, db): 
         match credential:
