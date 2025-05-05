@@ -6,7 +6,6 @@ class User(BaseModel):
     email: str
     password: str
 
-
 class GenderEnum(str, Enum):
     Male = "Male"
     Female = "Female"
@@ -18,3 +17,13 @@ class UserCreate(BaseModel):
     first_name: str
     last_name: str
     gender: Optional[GenderEnum]
+
+class UserUpdate(BaseModel):
+    email: Optional[EmailStr]
+    username: Optional[str]
+    first_name: Optional[str]
+    last_name: Optional[str]
+    gender: Optional[GenderEnum]
+
+class PasswordUpdate(BaseModel):
+    password: str

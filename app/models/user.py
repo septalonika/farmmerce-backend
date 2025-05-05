@@ -3,6 +3,8 @@ from sqlalchemy import Column, Integer, String, Enum, DateTime
 from datetime import datetime, timezone
 from passlib.context import CryptContext
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 class Users(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -15,20 +17,17 @@ class Users(Base):
     gender = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-
-    def __init__(self):
-        self.pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     
     def __repr__(self):
         return f'<User {self.username}>'
 
     def set_password(self, password: str):
         """Hash dan simpan password menggunakan passlib"""
-        return self.pwd_context.hash(password)
+        return pwd_context.hash(password)
         
     def check_password(self, password: str) -> bool:
         """Verifikasi password dengan hash yang tersimpan"""
-        return self.pwd_context.verify(password, self.password)
+        return pwd_context.verify(password, self.password)
 
     def serialize(self):
         return {
