@@ -24,7 +24,15 @@ if config.config_file_name is not None:
 # target_metadata = None
 # with
 # this
-from app.models.user import Base
+from app.instances.db_config import Base
+# Import semua model
+from app.models.user import Users
+from app.models.store import Stores
+from app.models.order import Orders
+from app.models.product import Products
+from app.models.review import Reviews
+from app.models.rating import Ratings
+
 target_metadata = Base.metadata
 
 config.set_main_option('sqlalchemy.url', settings.DATABASE_URL)
