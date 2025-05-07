@@ -41,4 +41,33 @@ class StoreView():
                     "status": 500
                 }
             )
-            
+    def create_store(self, payload, db):
+        try:
+            response = self.store_repo.create_store(payload, db)
+            if(response['success'] == False):
+                return JSONResponse(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={
+                        "success": False,
+                        "message": response['message'],
+                        "status": 500
+                    }
+                )
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "success": True,
+                    "data": response,
+                    "message": response['message'],
+                    "status": 200
+                }
+            )
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={
+                    "success": False,
+                    "message": str(e),
+                    "status": 500
+                }
+            )
