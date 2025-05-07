@@ -1,5 +1,5 @@
 from app.models.user import Users
-import re
+
 class UserRepository:
     def get_all(self, db):
         try:
