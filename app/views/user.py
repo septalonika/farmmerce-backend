@@ -14,7 +14,7 @@ class UserView():
                 return JSONResponse(
                     status_code=status.HTTP_404_NOT_FOUND,
                     content={
-                        "success": False,
+                        "success": True,
                         "message": "No users found",
                         "status": 404
                     }
