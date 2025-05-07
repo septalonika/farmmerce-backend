@@ -13,9 +13,6 @@ class Orders(Base):
     status = Column(String, nullable=False, default="pending")
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    items = relationship("OrderItem", back_populates="order")
-    user = relationship("Users", back_populates="orders")
-    store = relationship("Stores", back_populates="orders")
     
     def __repr__(self):
         return f'<Order {self.id}>'

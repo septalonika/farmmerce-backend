@@ -16,7 +16,6 @@ class Ratings(Base):
     five_star = Column(Integer, nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    product = relationship("Products", back_populates="orders")
     
     def __repr__(self):
         return f'<Rating {self.id}>'

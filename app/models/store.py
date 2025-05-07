@@ -12,8 +12,6 @@ class Stores(Base):
     description = Column(String, nullable=False)    
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    owner = relationship("Users", back_populates="stores")
-    orders = relationship("Orders", back_populates="store")
     
     def __repr__(self):
         return f'<Store {self.name}>'

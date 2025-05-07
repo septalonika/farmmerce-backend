@@ -17,11 +17,10 @@ class Users(Base):
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     gender = Column(String, nullable=True)
+    avatar = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    orders = relationship("Orders", back_populates="store")
-    stores = relationship("Stores", back_populates="owner")
-    
+
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -40,6 +39,7 @@ class Users(Base):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
+            'avatar': self.avatar,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
         }

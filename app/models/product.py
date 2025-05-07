@@ -15,8 +15,6 @@ class Products(Base):
     description = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    orders = relationship("Orders", back_populates="store")
-    store = relationship("Stores", back_populates="products")
     
     def __repr__(self):
         return f'<Product {self.name}>'
