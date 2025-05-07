@@ -15,7 +15,7 @@ user_view = UserView()
 async def login(payload: Login, db: Session = Depends(get_db)):
     return auth_view.login(payload, db)
 
-@auth_router.post("register")
+@auth_router.post("/register")
 async def register(payload: Register, db: Session= Depends(get_db)):
     return user_view.create_user(payload, db)
 

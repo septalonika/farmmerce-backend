@@ -4,7 +4,7 @@ from app.schemas.user_schema import UserCreate, UserUpdate, PasswordUpdate
 from sqlalchemy.orm import Session
 from app.instances.db_config import get_db
 
-user_router = APIRouter(prefix="/identity/v1/users", tags=["users"])
+user_router = APIRouter(prefix="/api/v1/users", tags=["users"])
 user_view = UserView()
 
 @user_router.get("")
