@@ -9,6 +9,8 @@ from app.repositories.user import UserRepository
 from app.models.user import Users
 from app.instances.db_config import get_db
 from sqlalchemy.orm import Session
+from app.settings import settings
+
 
 # Security scheme for JWT authentication
 security = HTTPBearer(auto_error=False)
@@ -24,8 +26,8 @@ async def get_current_user(
     try:
         payload = jwt.decode(
             credentials.credentials,
-            "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7",
-            algorithms=["HS256"]
+            settings.JWT_SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM],
         )
         user_id = payload.get("sub")
         if user_id is None:
