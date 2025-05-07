@@ -27,16 +27,19 @@ class User(BaseModel):
     first_name: str | None = None
     last_name: str | None = None
 
-class UserInDB(User):
-    hashed_password: str
 
 class UsernameInDB:{
     "username": str
 }
     
 class UserInDB():
+    id: int
     hashed_password: str
     username: str
+    email: str | None = None
+    first_name: str | None = None
+    last_name: str | None = None
+    role: str | None = None
 
 class Payload():
     email: str
@@ -54,7 +57,11 @@ class AuthView():
         if not user.check_password(password):
             return None
         return {
-            "username": user.username
+            "id": user.id,
+            "name": f'{user.first_name} {user.last_name}',
+            "username": user.username,
+            "email": user.email,
+            "role": user.role
         }
 
     def create_access_token(self, data: dict, expires_delta: timedelta | None = None):
@@ -78,7 +85,7 @@ class AuthView():
         access_token_expires = timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
         refresh_token_expires = timedelta(days=settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS)
         access_token = self.create_access_token(
-            data={"sub": user['username']}, expires_delta=access_token_expires
+            data={"sub": f"{user['id']},{user['username']},{user['email']}, {user['role']}, {user['name']}",}, expires_delta=access_token_expires
         )
         refresh_token = self.create_access_token(
             data={"sub": user['username']}, expires_delta=refresh_token_expires
