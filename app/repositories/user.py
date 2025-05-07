@@ -82,7 +82,25 @@ class UserRepository:
                 "message": message,
                 "status": 400
             }
-        
+    def update_avatar(self, id, url, db):
+        try:
+            user = db.query(Users).filter(Users.id == id).first()
+            user.avatar = url
+            db.commit()
+            db.refresh(user)
+            return {
+                "success": True,
+                "data": user.serialize(),
+                "message": "Avatar updated successfully",
+                "status": 200
+            }
+        except Exception as e:
+            db.rollback()
+            return {
+                "success": False,
+                "message": str(e),
+                "status": 500
+            }
     def update_user(self, id, payload, db):
         try:
             user = db.query(Users).filter(Users.id == id).first()
