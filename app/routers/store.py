@@ -3,6 +3,8 @@ from app.views.user import UserView
 from app.views.store import StoreView
 from sqlalchemy.orm import Session
 from app.instances.db_config import get_db
+from app.schemas.store_schema import StorePayload
+
 
 store_router = APIRouter(prefix="/api/v1/stores", tags=["users"])
 user_view = UserView()
@@ -13,8 +15,8 @@ async def get_all_stores(db: Session = Depends(get_db)):
     return store_view.get_all_stores(db)
 
 @store_router.post("")
-async def create_store(payload, db: Session = Depends(get_db)):
-    pass
+async def create_store(payload:StorePayload, db: Session = Depends(get_db)):
+    return store_view.create_store(payload, db)
 
 @store_router.put("/{id}")
 async def update_store(id, payload, db: Session = Depends(get_db)):
