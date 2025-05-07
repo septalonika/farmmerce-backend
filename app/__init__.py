@@ -4,6 +4,8 @@ from app.routers.user import user_router
 from app.routers.auth import auth_router
 from app.settings import settings
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
+
 
 async def startup():
     await database.connect()
@@ -20,6 +22,13 @@ def create_app():
         await shutdown()
 
     app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  
+        allow_credentials=True,
+        allow_methods=["*"], 
+        allow_headers=["*"],  
+    )
 
     app.include_router(user_router)
     app.include_router(auth_router)
