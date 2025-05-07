@@ -2,6 +2,7 @@ from app.instances.db_config import database
 from fastapi import FastAPI
 from app.routers.user import user_router
 from app.routers.auth import auth_router
+from app.routers.upload import upload_router
 from app.settings import settings
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,6 +33,7 @@ def create_app():
 
     app.include_router(user_router)
     app.include_router(auth_router)
+    app.include_router(upload_router)
 
     return app
 
