@@ -1,5 +1,6 @@
 from app.instances.db_config import Base
 from sqlalchemy import Column, Integer, String, Enum, DateTime
+from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from passlib.context import CryptContext
 
@@ -18,6 +19,8 @@ class Users(Base):
     gender = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
+    orders = relationship("Orders", back_populates="store")
+    stores = relationship("Stores", back_populates="owner")
     
     def __repr__(self):
         return f'<User {self.username}>'

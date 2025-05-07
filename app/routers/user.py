@@ -15,10 +15,6 @@ async def get_all_users(db: Session = Depends(get_db)):
 async def get_user(credential, db: Session = Depends(get_db)):
     return user_view.get_user(credential, db)
 
-@user_router.post("")
-async def create_user(payload: UserCreate, db: Session = Depends(get_db)):
-    return user_view.create_user(payload, db)
-
 @user_router.put("/{id}")
 async def update_user(id, payload: UserUpdate, db: Session = Depends(get_db)):
     return user_view.update_user(id, payload, db)
