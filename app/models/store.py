@@ -9,6 +9,7 @@ class Stores(Base):
     owner_id = Column(Integer, ForeignKey("users.id"),nullable=False)
     name = Column(String, nullable=False)
     logo = Column(String, nullable=True)
+    address = Column(String, nullable=False)
     description = Column(String, nullable=False)    
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
@@ -21,6 +22,7 @@ class Stores(Base):
             'name': self.name,
             'owner_id': self.owner_id,
             'logo': self.logo,
+            'address': self.address,
             'description': self.description,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
