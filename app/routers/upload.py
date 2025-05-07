@@ -23,4 +23,34 @@ def create_profile_image(uploaded_file: UploadFile, user_id: int, db: Session = 
         }
     url = create_presigned_url(bucket_name=bucket_name, object_name=uploaded_file.filename, expiration=900)
 
-    return UploadView().upload_file(user_id, url, db)
+    return UploadView().upload_user_avatar(user_id, url, db)
+
+@upload_router.post("/stores/{store_id}")
+def create_store_image(uploaded_file: UploadFile, store_id: int, db: Session = Depends(get_db)):
+    bucket_name = settings.AWS_S3_BUCKET_NAME
+    response = upload_file(uploaded_file.file, bucket_name, object_name=uploaded_file.filename)
+    status = response["success"]
+    message = response["message"]
+
+    if status == False:
+        return {
+            "message": message,
+        }
+    url = create_presigned_url(bucket_name=bucket_name, object_name=uploaded_file.filename, expiration=900)
+
+    return UploadView().upload_store_avatar(store_id, url, db)
+
+@upload_router.post("/products/{product_id}")
+def create_product_image(uploaded_file: UploadFile, product_id: int, db: Session = Depends(get_db)):
+    bucket_name = settings.AWS_S3_BUCKET_NAME
+    response = upload_file(uploaded_file.file, bucket_name, object_name=uploaded_file.filename)
+    status = response["success"]
+    message = response["message"]
+
+    if status == False:
+        return {
+            "message": message,
+        }
+    url = create_presigned_url(bucket_name=bucket_name, object_name=uploaded_file.filename, expiration=900)
+
+    return UploadView().add_product_image(product_id, url, db)
