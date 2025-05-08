@@ -11,6 +11,7 @@ class Products(Base):
     price = Column(Integer, nullable=False)
     stock = Column(Integer, nullable=False)
     image = Column(String, nullable=True)
+    category = Column(String, nullable=False)
     rating = Column(Integer, nullable=True)
     description = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
@@ -26,6 +27,7 @@ class Products(Base):
             'price': self.price,
             'stock': self.stock,
             'description': self.description,
+            'category': self.category,
             'rating': self.rating,
             'image': self.image,
             'created_at': self.created_at.isoformat() if self.created_at else None,
