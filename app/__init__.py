@@ -5,6 +5,7 @@ from app.routers.auth import auth_router
 from app.routers.upload import upload_router
 from app.routers.store import store_router
 from app.routers.product import product_router
+from app.routers.order import order_router
 from app.settings import settings
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,6 +39,7 @@ def create_app():
     app.include_router(upload_router)
     app.include_router(store_router)
     app.include_router(product_router)
+    app.include_router(order_router)
 
     return app
 
