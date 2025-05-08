@@ -31,14 +31,6 @@ class StoreRepository:
             }
         except Exception as e:
             db.rollback()  
-            # detail_msg = 
-            # match = re.search(r'Key \((.*?)\)=\((.*?)\)', detail_msg)
-            # if match:
-            #         field = match.group(1)      # e.g. 'username'
-            #         value = match.group(2)      # e.g. 'ur username'
-            #         message = f"{field} {value} already exists."
-            # else:
-            #         message = "Duplicate value violates unique constraint."
             return {
                 "success": False,
                 "message": str(e),
