@@ -9,6 +9,38 @@ class StoreView():
     def __init__(self):
         self.user_repo = UserRepository()
         self.store_repo = StoreRepository()
+
+    def get_store(self, id, db: Session):
+        try:
+            response = self.store_repo.get_store(id, db)
+            if response is None:
+                return JSONResponse(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    content={
+                        "success": True,
+                        "message": "No users found",
+                        "status": 404
+                    }
+                )
+            else:
+                serialized_response = response.serialize()
+                return JSONResponse(
+                    status_code=status.HTTP_200_OK,
+                    content={
+                        "success": True,
+                        "data": serialized_response,
+                        "status": 200
+                    }
+                )
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={
+                    "success": False,
+                    "message": str(e),
+                    "status": 500
+                }
+            )
     
     def get_all_stores(self, db: Session):
         try:
