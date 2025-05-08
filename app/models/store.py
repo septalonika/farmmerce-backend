@@ -10,6 +10,7 @@ class Stores(Base):
     name = Column(String, nullable=False)
     logo = Column(String, nullable=True)
     address = Column(String, nullable=False)
+    postal_code = Column(String, nullable=False)
     description = Column(String, nullable=False)    
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
