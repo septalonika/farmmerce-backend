@@ -6,3 +6,8 @@ class StorePayload(BaseModel):
     address: str
     description: str
     owner_id: int
+
+class UpdatePayload(BaseModel):
+    name: str
+    address: str
+    description: str
