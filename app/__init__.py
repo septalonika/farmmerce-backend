@@ -27,7 +27,7 @@ def create_app():
         yield
         await shutdown()
 
-    app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
+    app = FastAPI(title="Farmmerce", lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],  
