@@ -36,3 +36,26 @@ class StoreRepository:
                 "message": str(e),
                 "status": 400
             }
+        
+    def update_store(self, id, payload,db):
+        try:
+            store = db.query(Stores).filter(Stores.id == id).first()
+            store.name = payload.name
+            store.address = payload.address
+            store.description = payload.description
+
+            db.commit()
+            db.refresh(store)
+            return {
+                "success": True,
+                "data": store.serialize(),
+                "message": "Store updated successfully",
+                "status": 200
+            }
+        except Exception as e:
+            db.rollback()  
+            return {
+                "success": False,
+                "message": str(e),
+                "status": 400
+            }
