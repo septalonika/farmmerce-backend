@@ -24,7 +24,7 @@ async def update_store(id, payload:UpdatePayload, db: Session = Depends(get_db))
 
 @store_router.delete("/{id}")
 async def delete_store(id, db: Session = Depends(get_db)):
-    pass
+    return store_view.delete_store(id, db)
 
 @store_router.get("/{id}")
 async def get_store(id, db: Session = Depends(get_db)):
