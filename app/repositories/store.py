@@ -3,6 +3,15 @@ import re
 
 
 class StoreRepository:
+
+    def get_store(self, id, db):
+        try:
+            store = db.query(Stores).filter(Stores.id == id).first()
+            return store if store else None
+        except Exception as e:
+            db.rollback()
+            print(f"An error occurred: {e}")
+            return None
     def get_all(self, db):
         try:
             stores = db.query(Stores).all()

@@ -28,5 +28,5 @@ async def delete_store(id, db: Session = Depends(get_db)):
 
 @store_router.get("/{id}")
 async def get_store(id, db: Session = Depends(get_db)):
-    pass
+    return store_view.get_store(id, db)
 
