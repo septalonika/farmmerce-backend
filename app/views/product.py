@@ -1,13 +1,13 @@
 from fastapi import status
 from fastapi.responses import JSONResponse
-from app.repositories.user import UserRepository
+from app.repositories.product import ProductRepository
 from sqlalchemy.orm import Session
 
-class UserView():
+class ProductView():
     def __init__(self):
-        self.user_repo = UserRepository()
-    
-    def get_all_users(self, db: Session):
+        self.user_repo = ProductRepository()
+
+    def get_all_products(self, db: Session):
         try:
             response = self.user_repo.get_all(db)
             if response is None:
@@ -39,44 +39,9 @@ class UserView():
                 }
             )
         
-    def find_user(self, credential, db: Session):
-        user = self.user_repo.get_user_by(credential, db)
-        return user
-    
-    def get_user(self, credential, db: Session):
+    def update_product(self, id, payload, db: Session):
         try:
-            user = self.find_user(credential, db)
-            if(user is None):
-                return JSONResponse(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    content={
-                        "success": False,
-                        "message": "User not found",
-                        "status": 404
-                    }
-                )
-            return JSONResponse(
-                status_code=status.HTTP_200_OK,
-                content={
-                    "success": True,
-                    "data": user,
-                    "status": 200
-                }
-            )
-        except Exception as e:
-            return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={
-                    "success": False,
-                    "message": str(e),
-                    "status": 500
-                }
-            )
-        
-    
-    def create_user(self, payload, db):
-        try:
-            response = self.user_repo.create_user(payload, db)
+            response = self.user_repo.update_product(id, payload, db)
             if(response['success'] == False):
                 return JSONResponse(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -104,36 +69,27 @@ class UserView():
                     "status": 500
                 }
             )
-    def update_user(self, id, payload, db):
+    def delete_product(self, id, db: Session):
         try:
-            if(self.find_user(id, db) is None):
-                return JSONResponse(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    content={
-                        "success": False,
-                        "message": "User not found",
-                        "status": 404
-                    }
-                )
-            response = self.user_repo.update_user(id, payload, db)
+            response = self.user_repo.delete_product(id, db)
             if(response['success'] == False):
                 return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={
                         "success": False,
                         "message": response['message'],
                         "status": 500
                     }
                 )
             return JSONResponse(
-                    status_code=status.HTTP_200_OK,
-                    content={
-                        "success": True,
-                        "data": response,
-                        "message": response['message'],
-                        "status": 200
-                    }
-                )
+                status_code=status.HTTP_200_OK,
+                content={
+                    "success": True,
+                    "data": response,
+                    "message": response['message'],
+                    "status": 200
+                }
+            )
         except Exception as e:
             return JSONResponse(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -143,77 +99,27 @@ class UserView():
                     "status": 500
                 }
             )
-    
-    def update_password(self, id, payload, db):
+    def create_product(self, payload, db: Session):
         try:
-            if(self.find_user(id, db) is None):
-                return JSONResponse(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    content={
-                        "success": False,
-                        "message": "User not found",
-                        "status": 404
-                    }
-                )
-            response = self.user_repo.update_password(id, payload, db)
+            response = self.user_repo.create_product(payload, db)
             if(response['success'] == False):
                 return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={
                         "success": False,
                         "message": response['message'],
                         "status": 500
                     }
                 )
             return JSONResponse(
-                    status_code=status.HTTP_200_OK,
-                    content={
-                        "success": True,
-                        "data": response,
-                        "message": response['message'],
-                        "status": 200
-                    }
-                )
-        except Exception as e:
-            return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_200_OK,
                 content={
-                    "success": False,
-                    "message": str(e),
-                    "status": 500
-                    }
+                    "success": True,
+                    "data": response,
+                    "message": response['message'],
+                    "status": 200
+                }
             )
-        
-    def delete_user(self, id, db):
-        try:
-            if(self.find_user(id, db) is None):
-                return JSONResponse(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    content={
-                        "success": False,
-                        "message": "User not found",
-                        "status": 404
-                    }
-                )
-            response = self.user_repo.delete_user(id, db)
-            if(response['success'] == False):
-                return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={
-                        "success": False,
-                        "message": response['message'],
-                        "status": 500
-                    }
-                )
-            return JSONResponse(
-                    status_code=status.HTTP_200_OK,
-                    content={
-                        "success": True,
-                        "data": response,
-                        "message": response['message'],
-                        "status": 200
-                    }
-                )
         except Exception as e:
             return JSONResponse(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -222,4 +128,94 @@ class UserView():
                     "message": str(e),
                     "status": 500
                 }
-            )   
+            )
+    def get_product(self, id, db: Session):
+        try:
+            response = self.user_repo.get_product(id, db)
+            if(response['success'] == False):
+                return JSONResponse(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={
+                        "success": False,
+                        "message": response['message'],
+                        "status": 500
+                    }
+                )
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "success": True,
+                    "data": response,
+                    "message": response['message'],
+                    "status": 200
+                }
+            )
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={
+                    "success": False,
+                    "message": str(e),
+                    "status": 500
+                }
+            )  
+    def get_product_page(self, page, db: Session):
+        try:
+            response = self.user_repo.get_product_page(page, db)
+            if(response['success'] == False):
+                return JSONResponse(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={
+                        "success": False,
+                        "message": response['message'],
+                        "status": 500
+                    }
+                )
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "success": True,
+                    "data": response,
+                    "message": response['message'],
+                    "status": 200
+                }
+            )
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={
+                    "success": False,
+                    "message": str(e),
+                    "status": 500
+                }
+            )  
+    def get_product_by_category(self, category, db: Session):
+        try:
+            response = self.user_repo.get_product_by_category(category, db)
+            if(response['success'] == False):
+                return JSONResponse(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    content={
+                        "success": False,
+                        "message": response['message'],
+                        "status": 500
+                    }
+                )
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "success": True,
+                    "data": response,
+                    "message": response['message'],
+                    "status": 200
+                }
+            )
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={
+                    "success": False,
+                    "message": str(e),
+                    "status": 500
+                }
+            )

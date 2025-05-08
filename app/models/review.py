@@ -11,10 +11,6 @@ class Reviews(Base):
     rating_id = Column(Integer, ForeignKey("ratings.id"),nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=datetime.now(timezone.utc))
-    user = relationship("Users", back_populates="orders")
-    product = relationship("Products", back_populates="orders")
-    store = relationship("Stores", back_populates="orders")
-    rating = relationship("Ratings", back_populates="orders")
     
     def __repr__(self):
         return f'<Review {self.id}>'

@@ -13,4 +13,5 @@ dependencies = [
     "databases>=0.9.0",
     "pydantic-settings==2.8.1",
     "pyjwt>=2.10.1",
+    "boto3>=1.38.10",
 ]
