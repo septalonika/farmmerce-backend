@@ -58,6 +58,7 @@ class UserRepository:
             user.last_name = payload.last_name
             user.gender = payload.gender
             user.password = user.set_password(payload.password) 
+            user.postal_code = payload.postal_code
             if payload.address is not None:
                 user.address = payload.address
             if payload.postal_code is not None:
