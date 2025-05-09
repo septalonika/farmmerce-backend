@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 from typing import Optional
 class Settings(BaseSettings):
-    DATABASE_URL: Optional[str] = None
+    DATABASE_URL: str
     APP_NAME: str = "DefaultApp" 
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str
