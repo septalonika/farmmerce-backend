@@ -18,6 +18,7 @@ class UserCreate(BaseModel):
     last_name: str
     gender: Optional[GenderEnum]
     address: Optional[str]
+    postal_code: Optional[int]
 
 class UserUpdate(BaseModel):
     email: Optional[EmailStr]

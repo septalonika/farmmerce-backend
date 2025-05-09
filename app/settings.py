@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     AWS_S3_BUCKET_NAME: Optional[str] = None
     AWS_REGION_NAME: Optional[str] = None
     AWS_ENDPOINT_URL: Optional[str] = None
+    RAJA_ONGKIR_API_KEY: Optional[str] = None
 
     class Config:
         env_file = ".env"

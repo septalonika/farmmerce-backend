@@ -12,6 +12,7 @@ class Products(Base):
     stock = Column(Integer, nullable=False)
     image = Column(String, nullable=True)
     category = Column(String, nullable=False)
+    weight = Column(String, nullable=True)
     rating = Column(Integer, nullable=True)
     description = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
