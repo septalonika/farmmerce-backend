@@ -19,6 +19,7 @@ class ProductRepository:
             product.store_id = payload.store_id
             product.description = payload.description
             product.weight = payload.weight
+            product.category = payload.category
             if payload.image is not None:
                 product.image = payload.image
             db.add(product)
