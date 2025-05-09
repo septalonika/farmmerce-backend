@@ -25,6 +25,12 @@ class ProductRepository:
             db.add(product)
             db.commit()
             db.refresh(product)
+            return {
+                "success": True,
+                "data": product.serialize(),
+                "message": "User created successfully",
+                "status": 200
+            }
         except Exception as e:
             db.rollback()
             print(f"An error occured: {e}")

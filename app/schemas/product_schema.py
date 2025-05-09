@@ -19,7 +19,7 @@ class ProductCreate(BaseModel):
     price: float
     stock: int
     rating: int
-    image: str
+    image: Optional[str]
     store_id: int
     weight: int
     category: str

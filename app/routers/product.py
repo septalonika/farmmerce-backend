@@ -38,4 +38,3 @@ async def get_product_by_category(category, db: Session = Depends(get_db)):
 
 
 
-
