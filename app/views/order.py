@@ -2,7 +2,7 @@ from fastapi import status
 from fastapi.responses import JSONResponse
 from app.repositories.order import OrderRepository
 from sqlalchemy.orm import Session
-from app.middleware.s3.rajaOngkir import get_province
+from app.middleware.rajaOngkir import get_province
 
 class OrderView():
     def __init__(self):

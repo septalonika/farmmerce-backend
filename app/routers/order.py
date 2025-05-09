@@ -3,7 +3,7 @@ from app.views.order import OrderView
 from app.schemas.order_schema import OrderCreate, OrderUpdate,OrderEstimate
 from sqlalchemy.orm import Session
 from app.instances.db_config import get_db
-from app.middleware.s3.rajaOngkir import get_province
+from app.middleware.rajaOngkir import get_province
 
 order_router = APIRouter(prefix="/api/v1/orders", tags=["orders"])
 order_view = OrderView()
