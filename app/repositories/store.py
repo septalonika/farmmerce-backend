@@ -28,6 +28,8 @@ class StoreRepository:
             store.address = payload.address
             store.owner_id = payload.owner_id
             store.description = payload.description
+            if payload.logo is not None:
+                store.logo = payload.logo
 
             db.add(store)
             db.commit()
