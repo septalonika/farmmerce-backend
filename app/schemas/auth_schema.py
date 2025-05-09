@@ -17,6 +17,7 @@ class Register(BaseModel):
     last_name: str
     gender: Optional[str]
     address: Optional[str]
+    postal_code: Optional[int]
     
 class Token(BaseModel):
     access_token: str
