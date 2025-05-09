@@ -2,6 +2,7 @@ from fastapi import status
 from fastapi.responses import JSONResponse
 from app.repositories.order import OrderRepository
 from sqlalchemy.orm import Session
+from app.middleware.s3.rajaOngkir import get_province
 
 class OrderView():
     def __init__(self):
@@ -127,5 +128,23 @@ class OrderView():
                     "success": False,
                     "message": str(e),
                     "status": 500
+                }
+            )
+    def get_province(self, keywords):
+        try:
+            response = get_province(keywords)
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "success" : True,
+                    "data" : response
+                }
+            )
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content={
+                    "success": False,
+                    "message": str(e)
                 }
             )

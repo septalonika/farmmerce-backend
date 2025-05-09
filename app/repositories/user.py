@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from app.models.user import Users
 import re
 class UserRepository:
@@ -57,6 +58,10 @@ class UserRepository:
             user.last_name = payload.last_name
             user.gender = payload.gender
             user.password = user.set_password(payload.password) 
+            if payload.address is not None:
+                user.address = payload.address
+            if payload.postal_code is not None:
+                user.postal_code = payload.postal_code
 
             db.add(user)
             db.commit()
@@ -109,6 +114,9 @@ class UserRepository:
             user.first_name = payload.first_name
             user.last_name = payload.last_name
             user.gender = payload.gender
+            user.updated_at = datetime.now(timezone.utc)
+            user.address = payload.address
+            user.postal_code = payload.postal_code
             db.commit()
             db.refresh(user)
             return {
@@ -137,6 +145,7 @@ class UserRepository:
         try:
             user = db.query(Users).filter(Users.id == id).first()
             user.password = user.set_password(payload.password)
+            user.updated_at = datetime.now(timezone.utc)
             db.commit()
             db.refresh(user)
             return {
