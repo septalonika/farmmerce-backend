@@ -1,12 +1,12 @@
 import http.client
 import json
+from app.settings import settings
 
 
 def get_province(keywords: str):
     print('get province', keywords)
-    # conn = http.client.HTTPSConnection("api.rajaongkir.com")
     conn = http.client.HTTPSConnection("api-sandbox.collaborator.komerce.id")
-    headers = { 'x-api-key': "ZooOuYl8a685dce11f8ec67d1Ey3TLi1" }
+    headers = { 'x-api-key': settings.RAJA_ONGKIR_API_KEY }
     conn.request("GET", f"/tariff/api/v1/destination/search?keyword={keywords}", headers=headers)
 
     res = conn.getresponse()
@@ -17,9 +17,8 @@ def get_province(keywords: str):
 
 def get_cost(payload):
     print('get cost', payload)
-    # conn = http.client.HTTPSConnection("api.rajaongkir.com")
     conn = http.client.HTTPSConnection("api-sandbox.collaborator.komerce.id")
-    headers = { 'x-api-key': "ZooOuYl8a685dce11f8ec67d1Ey3TLi1" }
+    headers = { 'x-api-key': settings.RAJA_ONGKIR_API_KEY}
     conn.request("GET", f"/tariff/api/v1/cost", headers=headers)
 
     res = conn.getresponse()
