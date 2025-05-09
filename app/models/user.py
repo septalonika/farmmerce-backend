@@ -13,6 +13,7 @@ class Users(Base):
     username = Column(String, unique=True, index=True)
     password = Column(String, nullable=False)
     address = Column(String, nullable=True)
+    postal_code = Column(Integer, nullable=True)
     role = Column(Integer, nullable=False, default=1)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
@@ -39,6 +40,9 @@ class Users(Base):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
+            'gender': self.gender,
+            'address': self.address,
+            'postal_code': self.postal_code,
             'avatar': self.avatar,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
