@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 2500
 
 # Jalankan dengan uvicorn, bukan uv
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2500", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2500"]
