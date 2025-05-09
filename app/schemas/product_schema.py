@@ -20,6 +20,9 @@ class ProductCreate(BaseModel):
     stock: int
     rating: int
     image: str
+    store_id: int
+    weight: int
+    category: str
 
 class ProductUpdate(BaseModel):
     name: Optional[str]
