@@ -20,3 +20,7 @@ class OrderUpdate(BaseModel):
     total_amount: Optional[float]
     status: Optional[str]
 
+class OrderEstimate(BaseModel):
+    sender_id: int
+    receiver_id: int
+
